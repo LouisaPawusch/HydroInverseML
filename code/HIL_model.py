@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 
 class HIL_model(torch.nn.Module):
-    def __init__(self, in_channel, filter_sizes, max_pool_kernel_sizes, dropout_rate, stride = 1, batch_norm_momentum = 0.1, out_channels = None, paddings=None, seed=0):
+    def __init__(self, in_channel, filter_sizes, max_pool_kernel_sizes, dropout_rate, out_channels = None, stride = 1, batch_norm_momentum = 0.1, paddings=None, seed=0):
         super().__init__()
         self.num_hidden_layers = len(filter_sizes)
         self.conv_layers = nn.ModuleList()
@@ -15,7 +15,7 @@ class HIL_model(torch.nn.Module):
         current_channel = in_channel
         pooling_counter = 0
         for current_layer in range((self.num_hidden_layers+1) // 2):
-            out_channel = current_channel if out_channels is None else out_channels[current_layer]
+            out_channel = current_channel * 2 if out_channels is None else out_channels[current_layer]
             current_padding = ((filter_sizes[current_layer] - 1) // 2) if paddings is None else paddings[current_layer]
             self.conv_layers.append(nn.Conv2d(current_channel, out_channel, kernel_size=(filter_sizes[current_layer], filter_sizes[current_layer]), padding=current_padding, stride=stride, padding_mode='zeros'))
             self.conv_layers.append(nn.ReLU())
@@ -35,7 +35,7 @@ class HIL_model(torch.nn.Module):
                 self.conv_layers.append(nn.MaxUnpool2d(kernel_size=(max_pool_kernel_sizes[pooling_counter],max_pool_kernel_sizes[pooling_counter]), stride=max_pool_kernel_sizes[pooling_counter], padding=max_pool_kernel_sizes[pooling_counter] // 2))
                 pooling_counter -= 1
 
-            out_channel = current_channel if out_channels is None else out_channels[current_layer]
+            out_channel = current_channel // 2 if out_channels is None else out_channels[current_layer]
             current_padding = ((filter_sizes[current_layer] - 1) // 2) if paddings is None else paddings[current_layer]
             self.conv_layers.append(nn.Conv2d(current_channel, out_channel, kernel_size=(filter_sizes[current_layer], filter_sizes[current_layer]), padding=current_padding,  stride=stride, padding_mode='zeros'))
             self.conv_layers.append(nn.ReLU())
