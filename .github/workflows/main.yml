@@ -19,12 +19,6 @@ jobs:
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
 
-      # - name: Install pytest
-      #   run: python -m pip install pytest
-
-      # - name: Install pytorch
-      #   run: python -m pip install torch
-
       - name: Install dependencies
         run: python -m pip install -e .[dev]
 

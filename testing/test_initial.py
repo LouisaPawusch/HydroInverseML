@@ -1,5 +1,5 @@
 import torch
-from HydroInverseML.code import HIL_model
+from HydroInverseML.src.HydroInverseML import HIL_model
 
 def test_math():
     assert 1 + 1 == 2
