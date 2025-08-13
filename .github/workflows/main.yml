@@ -19,14 +19,14 @@ jobs:
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
 
-      - name: Install pytest
-        run: python -m pip install pytest
+      # - name: Install pytest
+      #   run: python -m pip install pytest
 
-      - name: Install pytorch
-        run: python -m pip install torch
+      # - name: Install pytorch
+      #   run: python -m pip install torch
 
-      # - name: Install dependencies
-      #   run: python -m pip install -e .[dev]
+      - name: Install dependencies
+        run: python -m pip install -e .[dev]
 
       - name: Test package
         run: python -m pytest
