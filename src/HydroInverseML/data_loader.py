@@ -1,9 +1,9 @@
 import torch
 import hf_hydrodata as hf
-from HydroInverseML.src.HydroInverseML.hf_api_pin import return_api_pin
+# from HydroInverseML.src.HydroInverseML.hf_api_pin import return_api_pin
 
-email, pin = return_api_pin()
-hf.register_api_pin(email, pin)
+# email, pin = return_api_pin()
+# hf.register_api_pin(email, pin)
 # hf.register_api_pin("<your_email>", "<your_pin>")
 
 
