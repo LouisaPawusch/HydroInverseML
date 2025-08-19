@@ -1,5 +1,8 @@
+import os
 import torch
+
 from HydroInverseML.src.HydroInverseML import HIL_model
+from HydroInverseML.src.HydroInverseML.data_loader import open_file, access_hydrodata
 
 # to execute and show print statements run pytest -s
 
@@ -23,4 +26,13 @@ def test_HIL_model():
     assert y.shape == (1, test_out_channels[-1], 150, 150)
 
 
-    
+def test_data_loader():
+    here = os.path.dirname(__file__)
+    file_path = os.path.join(here, "test.txt")
+    content = open_file(file_path)
+    assert content == "test file"
+"""
+def test_access_hydrodata():
+    # Test access_hydrodata function
+    assert access_hydrodata() is True
+"""
