@@ -1,3 +1,4 @@
+import os
 import torch
 import hf_hydrodata as hf
 # from HydroInverseML.src.HydroInverseML.hf_api_pin import return_api_pin
@@ -7,10 +8,11 @@ import hf_hydrodata as hf
 # hf.register_api_pin("<your_email>", "<your_pin>")
 
 
-def open_file(file_path):
-    with open(file_path, 'r') as file:
-        content = file.read()
-    return content
+def open_file(file_path: str) -> str:
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+    abs_path = os.path.join(repo_root, file_path)
+    with open(abs_path, "r") as file:
+        return file.read()
 
 def access_hydrodata():
     # ss_water_table_depth only exists in conus2_domain (=CONUS2.0)
